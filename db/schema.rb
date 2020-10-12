@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_23_084951) do
+ActiveRecord::Schema.define(version: 2020_10_12_103611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fabrics", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "description"
+    t.integer "width"
+    t.integer "length"
+    t.string "colors"
+    t.string "composition"
+    t.string "washing_instruction"
+    t.string "washed"
+    t.date "purchasing_date"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_fabrics_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +43,5 @@ ActiveRecord::Schema.define(version: 2020_09_23_084951) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "fabrics", "users"
 end
